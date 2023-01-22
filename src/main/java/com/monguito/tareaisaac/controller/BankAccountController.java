@@ -5,6 +5,7 @@ import com.monguito.tareaisaac.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +41,7 @@ public class BankAccountController {
     }
 
     @GetMapping("/banco/cuentas/{fecha_ini}/{fecha_fin}")
-    public List<BankAccount> getAccountByDates(@PathVariable LocalDateTime fecha_ini, @PathVariable LocalDateTime fecha_fin) {
+    public List<BankAccount> getAccountByDates(@PathVariable Date fecha_ini, @PathVariable Date fecha_fin) {
         return service.findAccountByDates(fecha_ini, fecha_fin);
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +56,7 @@ public class BankAccountService {
         return "La cuenta bancaria ha sido actualizada con éxito.";
     }
 
-    public List<BankAccount> findAccountByDates(@PathVariable LocalDateTime fechaIni, @PathVariable LocalDateTime fechaFin) {
+    public List<BankAccount> findAccountByDates(Date fechaIni, Date fechaFin) {
         return repository.findAllByDates(fechaIni, fechaFin);
     }
 }
