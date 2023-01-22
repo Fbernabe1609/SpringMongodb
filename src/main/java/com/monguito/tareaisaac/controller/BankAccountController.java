@@ -1,7 +1,7 @@
 package com.monguito.tareaisaac.controller;
 
 import com.monguito.tareaisaac.model.BankAccount;
-import com.monguito.tareaisaac.repository.BankAccountRepository;
+import com.monguito.tareaisaac.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,21 +11,16 @@ import java.util.Optional;
 @RestController
 public class BankAccountController {
     @Autowired
-    private BankAccountRepository repository;
+    private BankAccountService service;
 
     @GetMapping("/banco/cuentas")
     public List<BankAccount> getAllCuentas() {
-        return repository.findAll();
+        return service.findAll();
     }
-
-//    @GetMapping("/banco/cuentas")
-//    public List<BankAccount> getAllCuentas() {
-//        return repository.findAllAccounts();
-//    }
 
     @GetMapping("/banco/cuentas/{nro_cuenta}")
     public Optional<BankAccount> getCuentaByNumeroCuenta(@PathVariable String nro_cuenta) {
-        return repository.findById(nro_cuenta);
+        return service.findById(nro_cuenta);
     }
 
 //    @GetMapping("/banco/cuentas/{nro_cuenta}")
@@ -35,20 +30,17 @@ public class BankAccountController {
 
     @PostMapping("/banco/cuentas/new")
     public String insertCuenta(@RequestBody BankAccount cuentaBancaria) {
-        repository.insert(cuentaBancaria);
-        return "La cuenta bancaria ha sido creada con éxito.";
+        return service.insert(cuentaBancaria);
     }
 
-    @PutMapping("/banco/cuentas/update")
-    public String updateCuenta(@RequestBody BankAccount cuentaBancaria) {
-        repository.save(cuentaBancaria);
-        return "La cuenta bancaria ha sido actualizada con éxito.";
-    }
-
-    @DeleteMapping("/banco/cuentas/{numeroCuenta}")
-    public String deleteCuenta(@PathVariable String numeroCuenta) {
-//        repository.findById();
-        repository.softDeleteAccount(numeroCuenta,true);
-        return "La cuenta bancaria eliminada.";
+//    @PutMapping("/banco/cuentas/update")
+//    public String updateCuenta(@RequestBody BankAccount cuentaBancaria) {
+//        repository.save(cuentaBancaria);
+//        return "La cuenta bancaria ha sido actualizada con éxito.";
+//    }
+//
+    @DeleteMapping("/banco/cuentas/{nro_cuenta}")
+    public String deleteCuenta(@PathVariable String nro_cuenta) {
+        return service.deleteCuenta(nro_cuenta);
     }
 }
