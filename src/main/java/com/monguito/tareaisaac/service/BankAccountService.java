@@ -75,7 +75,7 @@ public class BankAccountService {
             message = "El ingreso debe ser positivo y mayor que 0";
         } else {
             Optional<BankAccount> cuenta = repository.findById(numeroCuenta);
-            if (cuenta.isEmpty()){
+            if (cuenta.isEmpty() || cuenta.get().isDeleted()){
                 message = "La cuenta no existe";
             } else {
                 double saldoAnterior = cuenta.get().getBalance();
@@ -93,7 +93,7 @@ public class BankAccountService {
             message = "El retiro debe ser positivo y mayor que 0";
         } else {
             Optional<BankAccount> cuenta = repository.findById(numeroCuenta);
-            if (cuenta.isEmpty()){
+            if (cuenta.isEmpty() || cuenta.get().isDeleted()){
                 message = "La cuenta no existe";
             } else {
                 if (cuenta.get().getBalance() < retiro) {
