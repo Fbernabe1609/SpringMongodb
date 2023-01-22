@@ -4,8 +4,8 @@ import com.monguito.tareaisaac.model.BankAccount;
 import com.monguito.tareaisaac.repository.BankAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -53,5 +53,9 @@ public class BankAccountService {
     public String save(BankAccount cuentaBancaria) {
         repository.save(cuentaBancaria);
         return "La cuenta bancaria ha sido actualizada con éxito.";
+    }
+
+    public List<BankAccount> findAccountByDates(@PathVariable LocalDateTime fechaIni, @PathVariable LocalDateTime fechaFin) {
+        return repository.findAllByDates(fechaIni, fechaFin);
     }
 }
