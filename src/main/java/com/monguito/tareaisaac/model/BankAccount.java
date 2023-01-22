@@ -3,7 +3,7 @@ package com.monguito.tareaisaac.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Document("Cuenta")
@@ -12,7 +12,7 @@ public class BankAccount {
     String accountNumber;
     List<String> accountHolders;
     double balance;
-    LocalDate date;
+    LocalDateTime date;
     boolean deleted;
     public BankAccount(){
 
@@ -20,16 +20,11 @@ public class BankAccount {
     public BankAccount(List<String> accountHolders) {
         this.accountHolders = accountHolders;
         this.balance = 0;
-        this.date = LocalDate.now();
         this.deleted = false;
     }
 
     public String getAccountNumber() {
         return accountNumber;
-    }
-
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
     }
 
     public List<String> getAccountHolders() {
@@ -44,11 +39,11 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

@@ -11,7 +11,7 @@ public interface BankAccountRepository extends MongoRepository<BankAccount, Stri
     @Query("{ 'deleted': false}")
     List<BankAccount> findAllAccounts();
 
-    @Query("{ 'numeroCuenta': ?0 }{ 'deleted': false}")
+    @Query("{ 'numeroCuenta': ?0 }")
     void softDeleteAccount(String numeroCuenta, boolean borrada);
 
 //    @Query("{ 'numeroCuenta': ?0 }")

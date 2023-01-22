@@ -20,27 +20,21 @@ public class BankAccountController {
 
     @GetMapping("/banco/cuentas/{nro_cuenta}")
     public Optional<BankAccount> getCuentaByNumeroCuenta(@PathVariable String nro_cuenta) {
-        return service.findById(nro_cuenta);
+        return service.findAccountById(nro_cuenta);
     }
-
-//    @GetMapping("/banco/cuentas/{nro_cuenta}")
-//    public BankAccount getCuentaByNumeroCuenta(@PathVariable String nro_cuenta) {
-//        return repository.findByNumeroCuenta(nro_cuenta);
-//    }
 
     @PostMapping("/banco/cuentas/new")
     public String insertCuenta(@RequestBody BankAccount cuentaBancaria) {
         return service.insert(cuentaBancaria);
     }
 
-//    @PutMapping("/banco/cuentas/update")
-//    public String updateCuenta(@RequestBody BankAccount cuentaBancaria) {
-//        repository.save(cuentaBancaria);
-//        return "La cuenta bancaria ha sido actualizada con éxito.";
-//    }
-//
+    @PutMapping("/banco/cuentas/update")
+    public String updateCuenta(@RequestBody BankAccount cuentaBancaria) {
+        return service.save(cuentaBancaria);
+    }
+
     @DeleteMapping("/banco/cuentas/{nro_cuenta}")
     public String deleteCuenta(@PathVariable String nro_cuenta) {
-        return service.deleteCuenta(nro_cuenta);
+        return service.deleteAccount(nro_cuenta);
     }
 }
