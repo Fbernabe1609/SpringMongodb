@@ -40,13 +40,13 @@ public class BankAccountController {
     }
 
     @GetMapping("/banco/cuentas/ingresar/{nro_cuenta}/{ingreso}")
-    public String insertMoney(String numeroCuenta, double ingreso) {
-        return service.insertMoneyInAccount(numeroCuenta, ingreso);
+    public String insertMoney(@PathVariable String nro_cuenta, @PathVariable double ingreso) {
+        return service.insertMoneyInAccount(nro_cuenta, ingreso);
     }
 
     @GetMapping("/banco/cuentas/retirar/{nro_cuenta}/{retiro}")
-    public String withdrawMoney(String numeroCuenta, double retiro) {
-        return service.withdrawMoneyInAccount(numeroCuenta, retiro);
+    public String withdrawMoney(@PathVariable String nro_cuenta, @PathVariable double retiro) {
+        return service.withdrawMoneyInAccount(nro_cuenta, retiro);
     }
 
     @PutMapping("/banco/cuentas/update")
