@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,11 +29,6 @@ public class BankAccountController {
         return service.insert(cuentaBancaria);
     }
 
-    @PutMapping("/banco/cuentas/update")
-    public String updateCuenta(@RequestBody BankAccount cuentaBancaria) {
-        return service.save(cuentaBancaria);
-    }
-
     @DeleteMapping("/banco/cuentas/{nro_cuenta}")
     public String deleteCuenta(@PathVariable String nro_cuenta) {
         return service.deleteAccount(nro_cuenta);
@@ -43,5 +37,20 @@ public class BankAccountController {
     @GetMapping("/banco/cuentas/{fecha_ini}/{fecha_fin}")
     public List<BankAccount> getAccountByDates(@PathVariable Date fecha_ini, @PathVariable Date fecha_fin) {
         return service.findAccountByDates(fecha_ini, fecha_fin);
+    }
+
+    @GetMapping("/banco/cuentas/ingresar/{nro_cuenta}/{ingreso}")
+    public String insertMoney(String numeroCuenta, double ingreso) {
+        return service.insertMoneyInAccount(numeroCuenta, ingreso);
+    }
+
+    @GetMapping("/banco/cuentas/retirar/{nro_cuenta}/{retiro}")
+    public String withdrawMoney(String numeroCuenta, double retiro) {
+        return service.withdrawMoneyInAccount(numeroCuenta, retiro);
+    }
+
+    @PutMapping("/banco/cuentas/update")
+    public String updateCuenta(@RequestBody BankAccount cuentaBancaria) {
+        return service.update(cuentaBancaria);
     }
 }

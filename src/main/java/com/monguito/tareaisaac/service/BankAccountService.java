@@ -4,7 +4,6 @@ import com.monguito.tareaisaac.model.BankAccount;
 import com.monguito.tareaisaac.repository.BankAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
@@ -51,12 +50,61 @@ public class BankAccountService {
         return repository.findById(nro_cuenta);
     }
 
-    public String save(BankAccount cuentaBancaria) {
-        repository.save(cuentaBancaria);
-        return "La cuenta bancaria ha sido actualizada con éxito.";
+    public String update(BankAccount cuentaBancaria) {
+        String message = "";
+        boolean result = false;
+        if(repository.existsById(cuentaBancaria.getAccountNumber())) {
+            repository.save(cuentaBancaria);
+            result = true;
+        }
+        if(result) {
+            message = "Cuenta bancaria actualizada";
+        } else {
+            message = "La cuenta bancaria no existe";
+        }
+        return message;
     }
 
     public List<BankAccount> findAccountByDates(Date fechaIni, Date fechaFin) {
         return repository.findAllByDates(fechaIni, fechaFin);
+    }
+
+    public String insertMoneyInAccount(String numeroCuenta, double ingreso) {
+        String message = "";
+        if (ingreso <= 0) {
+            message = "El ingreso debe ser positivo y mayor que 0";
+        } else {
+            Optional<BankAccount> cuenta = repository.findById(numeroCuenta);
+            if (cuenta.isEmpty()){
+                message = "La cuenta no existe";
+            } else {
+                double saldoAnterior = cuenta.get().getBalance();
+                cuenta.get().setBalance(cuenta.get().getBalance() + ingreso);
+                repository.save(cuenta.get());
+                message = "Saldo anterior: " + saldoAnterior + " - Ingresado: " + ingreso + " - Saldo nuevo: " + cuenta.get().getBalance();
+            }
+        }
+        return message;
+    }
+
+    public String withdrawMoneyInAccount(String numeroCuenta, double retiro) {
+        String message = "";
+        if (retiro <= 0) {
+            message = "El retiro debe ser positivo y mayor que 0";
+        } else {
+            Optional<BankAccount> cuenta = repository.findById(numeroCuenta);
+            if (cuenta.isEmpty()){
+                message = "La cuenta no existe";
+            } else {
+                if (cuenta.get().getBalance() < retiro) {
+                    retiro = cuenta.get().getBalance();
+                }
+                double saldoAnterior = cuenta.get().getBalance();
+                cuenta.get().setBalance(cuenta.get().getBalance() - retiro);
+                repository.save(cuenta.get());
+                message = "Saldo anterior: " + saldoAnterior + " - Retirado: " + retiro + " - Saldo nuevo: " + cuenta.get().getBalance();
+            }
+        }
+        return message;
     }
 }

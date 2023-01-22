@@ -31,6 +31,10 @@ public class BankAccount {
         return accountHolders;
     }
 
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
     public double getBalance() {
         return balance;
     }
