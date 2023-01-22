@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class BankAccount {
     String accountNumber;
     List<String> accountHolders;
     double balance;
-    Date date;
+    LocalDate date;
     boolean deleted;
     public BankAccount(){
 
@@ -21,7 +22,7 @@ public class BankAccount {
     public BankAccount(List<String> accountHolders) {
         this.accountHolders = accountHolders;
         this.balance = 0;
-        this.date = Date.from(Instant.now());
+        this.date = LocalDate.now();
         this.deleted = false;
     }
 
@@ -45,11 +46,11 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

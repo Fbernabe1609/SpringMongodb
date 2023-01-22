@@ -33,7 +33,6 @@ public class BankAccountController {
 //        return repository.findByNumeroCuenta(nro_cuenta);
 //    }
 
-
     @PostMapping("/banco/cuentas/new")
     public String insertCuenta(@RequestBody BankAccount cuentaBancaria) {
         repository.insert(cuentaBancaria);
@@ -48,6 +47,7 @@ public class BankAccountController {
 
     @DeleteMapping("/banco/cuentas/{numeroCuenta}")
     public String deleteCuenta(@PathVariable String numeroCuenta) {
+//        repository.findById();
         repository.softDeleteAccount(numeroCuenta,true);
         return "La cuenta bancaria eliminada.";
     }
