@@ -9,5 +9,4 @@ public class TareaIsaacApplication {
     public static void main(String[] args) {
         SpringApplication.run(TareaIsaacApplication.class, args);
     }
-
 }
